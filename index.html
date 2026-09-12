@@ -35,6 +35,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
 }
 
 h1 {
@@ -51,20 +52,36 @@ h1 {
     font-style: italic;
 }
 
-.energy {
-    margin-top: 35px;
+.resources {
+    margin-top: 30px;
     text-align: center;
 }
 
-.energy-number {
-    font-size: 42px;
+.energy-number,
+.void-number {
+    font-size: 38px;
     font-weight: bold;
 }
 
-.energy-label {
+.energy-label,
+.void-label {
     color: #666;
     letter-spacing: 4px;
-    font-size: 11px;
+    font-size: 10px;
+}
+
+.void-resource {
+    display: none;
+    margin-top: 15px;
+}
+
+.void-resource.active {
+    display: block;
+}
+
+.void-number {
+    color: #aaa;
+    text-shadow: 0 0 15px #fff;
 }
 
 .entity {
@@ -80,8 +97,7 @@ h1 {
         #080808 70%
     );
 
-    box-shadow:
-        0 0 30px rgba(255,255,255,.08);
+    box-shadow: 0 0 30px rgba(255,255,255,.08);
 
     display: flex;
     justify-content: center;
@@ -106,8 +122,7 @@ h1 {
 
     background: #aaa;
 
-    box-shadow:
-        0 0 25px #aaa;
+    box-shadow: 0 0 25px #aaa;
 
     transition:
         width .8s,
@@ -118,25 +133,19 @@ h1 {
     position: relative;
 }
 
-/* EYE */
-
 .eye {
     display: none;
 
     position: absolute;
-
     width: 70%;
     height: 38%;
-
     left: 15%;
     top: 31%;
 
     border-radius: 50%;
-
     background: #050505;
 
-    box-shadow:
-        0 0 12px #fff;
+    box-shadow: 0 0 12px #fff;
 }
 
 .eye::after {
@@ -148,7 +157,6 @@ h1 {
     height: 7px;
 
     background: #fff;
-
     border-radius: 50%;
 
     left: 50%;
@@ -156,49 +164,31 @@ h1 {
 
     transform: translate(-50%, -50%);
 
-    box-shadow:
-        0 0 12px #fff;
+    box-shadow: 0 0 12px #fff;
 }
-
-/* HINT */
 
 .hint {
     margin-top: 18px;
-
     color: #555;
-
     font-size: 12px;
 }
 
-/* UPGRADES */
-
 .upgrades {
     margin-top: 30px;
-
     width: min(500px, 100%);
-
-    max-height: 300px;
-
-    overflow-y: auto;
-
-    padding-right: 4px;
 }
 
 .upgrade {
     width: 100%;
-
     padding: 14px;
-
     margin-top: 10px;
 
     background: #0d0d0d;
-
     border: 1px solid #222;
 
     color: #ddd;
 
     cursor: pointer;
-
     text-align: left;
 
     border-radius: 8px;
@@ -214,7 +204,6 @@ h1 {
 
 .upgrade:disabled {
     opacity: .35;
-
     cursor: not-allowed;
 }
 
@@ -228,31 +217,83 @@ h1 {
 
 .upgrade-info {
     margin-top: 4px;
-
     color: #777;
-
     font-size: 12px;
+}
+
+/* VOID */
+
+.void-panel {
+    display: none;
+
+    width: min(500px, 100%);
+    margin-top: 25px;
+
+    padding: 18px;
+
+    border: 1px solid #222;
+    background: #090909;
+
+    border-radius: 8px;
+
+    text-align: center;
+}
+
+.void-panel.active {
+    display: block;
+}
+
+.void-title {
+    letter-spacing: 5px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.void-description {
+    margin-top: 8px;
+    color: #555;
+    font-size: 11px;
+}
+
+.void-button {
+    margin-top: 15px;
+
+    width: 100%;
+    padding: 13px;
+
+    background: #111;
+    border: 1px solid #333;
+
+    color: #ddd;
+
+    border-radius: 8px;
+}
+
+.void-button:not(:disabled) {
+    cursor: pointer;
+}
+
+.void-button:disabled {
+    opacity: .3;
 }
 
 /* MESSAGE */
 
 .message {
     position: fixed;
-
     bottom: 25px;
 
     color: #555;
 
     font-size: 12px;
-
     letter-spacing: 1px;
 
     text-align: center;
+
+    max-width: 90%;
 }
 
-/* =========================
-   EVOLUTION
-========================= */
+/* EVOLUTION */
 
 .stage1 .core {
     width: 35px;
@@ -262,17 +303,13 @@ h1 {
 .stage2 .core {
     width: 48px;
     height: 48px;
-
     background: #bbb;
-
-    box-shadow:
-        0 0 45px #aaa;
+    box-shadow: 0 0 45px #aaa;
 }
 
 .stage3 .core {
     width: 62px;
     height: 62px;
-
     background: #ddd;
 
     box-shadow:
@@ -289,7 +326,6 @@ h1 {
 .stage4 .core {
     width: 78px;
     height: 78px;
-
     background: #fff;
 
     box-shadow:
@@ -305,7 +341,6 @@ h1 {
 .stage5 .core {
     width: 95px;
     height: 95px;
-
     background: #fff;
 
     box-shadow:
@@ -313,8 +348,6 @@ h1 {
         0 0 100px #fff,
         0 0 180px #fff;
 }
-
-/* 10,000 */
 
 .stage6 {
     animation: awakenPulse 1.5s infinite;
@@ -338,12 +371,7 @@ h1 {
 
 .stage6 .eye {
     display: block;
-
-    animation:
-        eyeOpen 1.2s ease-out;
 }
-
-/* 50,000 */
 
 .stage7 {
     animation: finalPulse 1s infinite;
@@ -369,8 +397,6 @@ h1 {
     display: block;
 }
 
-/* 100,000 */
-
 .stage8 {
     animation: tutorialComplete 2s infinite;
 
@@ -395,10 +421,7 @@ h1 {
     display: block;
 }
 
-/* ANIMATIONS */
-
 @keyframes pulse {
-
     0%, 100% {
         transform: scale(1);
     }
@@ -409,7 +432,6 @@ h1 {
 }
 
 @keyframes awakenPulse {
-
     0%, 100% {
         transform: scale(1);
     }
@@ -420,7 +442,6 @@ h1 {
 }
 
 @keyframes finalPulse {
-
     0%, 100% {
         transform: scale(1);
     }
@@ -431,7 +452,6 @@ h1 {
 }
 
 @keyframes tutorialComplete {
-
     0%, 100% {
         transform: scale(1);
     }
@@ -442,7 +462,6 @@ h1 {
 }
 
 @keyframes eyeOpen {
-
     0% {
         transform: scaleY(0);
         opacity: 0;
@@ -467,17 +486,32 @@ h1 {
         Something Is Waiting
     </div>
 
-    <div class="energy">
+    <div class="resources">
 
-        <div
-            class="energy-number"
-            id="energy"
-        >
+        <div class="energy-number" id="energy">
             0
         </div>
 
         <div class="energy-label">
             ENERGY
+        </div>
+
+        <div
+            class="void-resource"
+            id="voidResource"
+        >
+
+            <div
+                class="void-number"
+                id="void"
+            >
+                0
+            </div>
+
+            <div class="void-label">
+                VOID
+            </div>
+
         </div>
 
     </div>
@@ -487,10 +521,7 @@ h1 {
         id="entity"
     >
 
-        <div
-            class="core"
-            id="core"
-        >
+        <div class="core">
 
             <div class="eye"></div>
 
@@ -502,9 +533,9 @@ h1 {
         Feed it.
     </div>
 
-    <div class="upgrades">
+    <!-- ENERGY UPGRADES -->
 
-        <!-- 1 -->
+    <div class="upgrades">
 
         <button
             class="upgrade"
@@ -526,8 +557,6 @@ h1 {
         </button>
 
 
-        <!-- 2 -->
-
         <button
             class="upgrade"
             id="upgrade2"
@@ -548,8 +577,6 @@ h1 {
         </button>
 
 
-        <!-- 3 -->
-
         <button
             class="upgrade locked"
             id="upgrade3"
@@ -562,19 +589,14 @@ h1 {
             </div>
 
             <div class="upgrade-info">
-
                 Unlocks at 500 Energy ·
                 Cost:
                 <span id="cost3">500</span>
-
-                · +5 energy per click
-
+                · +5 energy/click
             </div>
 
         </button>
 
-
-        <!-- 4 -->
 
         <button
             class="upgrade locked"
@@ -588,19 +610,14 @@ h1 {
             </div>
 
             <div class="upgrade-info">
-
                 Unlocks at 1,000 Energy ·
                 Cost:
                 <span id="cost4">1500</span>
-
                 · +5 energy/sec
-
             </div>
 
         </button>
 
-
-        <!-- 5 -->
 
         <button
             class="upgrade locked"
@@ -614,19 +631,14 @@ h1 {
             </div>
 
             <div class="upgrade-info">
-
                 Unlocks at 5,000 Energy ·
                 Cost:
                 <span id="cost5">5000</span>
-
-                · +25 energy per click
-
+                · +25 energy/click
             </div>
 
         </button>
 
-
-        <!-- 6 -->
 
         <button
             class="upgrade locked"
@@ -640,15 +652,39 @@ h1 {
             </div>
 
             <div class="upgrade-info">
-
                 Unlocks at 10,000 Energy ·
                 Cost:
                 <span id="cost6">15000</span>
-
                 · +25 energy/sec
-
             </div>
 
+        </button>
+
+    </div>
+
+
+    <!-- VOID -->
+
+    <div
+        class="void-panel"
+        id="voidPanel"
+    >
+
+        <div class="void-title">
+            VOID
+        </div>
+
+        <div class="void-description">
+            Something else is waiting.
+        </div>
+
+        <button
+            class="void-button"
+            id="voidButton"
+            onclick="createVoid()"
+            disabled
+        >
+            Sacrifice 10,000 Energy
         </button>
 
     </div>
@@ -672,13 +708,24 @@ h1 {
 
 let energy = 0;
 
+let voidPower = 0;
+
 let clickPower = 1;
 
 let autoPower = 0;
 
 
 /* =========================
-   UPGRADE DATA
+   VOID
+========================= */
+
+let voidUnlocked = false;
+
+const VOID_COST = 10000;
+
+
+/* =========================
+   UPGRADES
 ========================= */
 
 const upgrades = {
@@ -733,6 +780,7 @@ const upgrades = {
 
 };
 
+
 /* =========================
    ELEMENTS
 ========================= */
@@ -740,11 +788,23 @@ const upgrades = {
 const energyEl =
     document.getElementById("energy");
 
+const voidEl =
+    document.getElementById("void");
+
 const entity =
     document.getElementById("entity");
 
 const message =
     document.getElementById("message");
+
+const voidResource =
+    document.getElementById("voidResource");
+
+const voidPanel =
+    document.getElementById("voidPanel");
+
+const voidButton =
+    document.getElementById("voidButton");
 
 
 /* =========================
@@ -756,9 +816,14 @@ function update() {
     energyEl.textContent =
         Math.floor(energy);
 
+    voidEl.textContent =
+        Math.floor(voidPower);
+
     updateUpgrades();
 
     updateEvolution();
+
+    updateVoid();
 
 }
 
@@ -831,8 +896,9 @@ function buyUpgrade(id) {
         upgrade.auto;
 
     upgrade.cost =
-    Math.floor(
-        upgrade.cost * upgrade.multiplier
+        Math.floor(
+            upgrade.cost *
+            upgrade.multiplier
         );
 
     document.getElementById(
@@ -869,82 +935,82 @@ function updateEvolution() {
 
     if (energy < 100) {
 
-        entity.classList.add(
-            "stage1"
-        );
+        entity.classList.add("stage1");
 
         message.textContent =
             "It is still sleeping.";
 
+    }
 
-    } else if (energy < 500) {
+    else if (energy < 500) {
 
-        entity.classList.add(
-            "stage2"
-        );
+        entity.classList.add("stage2");
 
         message.textContent =
             "Something is stirring.";
 
+    }
 
-    } else if (energy < 1000) {
+    else if (energy < 1000) {
 
-        entity.classList.add(
-            "stage3"
-        );
+        entity.classList.add("stage3");
 
         message.textContent =
             "It knows you are here.";
 
+    }
 
-    } else if (energy < 5000) {
+    else if (energy < 5000) {
 
-        entity.classList.add(
-            "stage4"
-        );
+        entity.classList.add("stage4");
 
         message.textContent =
             "It is beginning to awaken.";
 
+    }
 
-    } else if (energy < 10000) {
+    else if (energy < 10000) {
 
-        entity.classList.add(
-            "stage5"
-        );
+        entity.classList.add("stage5");
 
         message.textContent =
             "It is awake.";
 
+    }
 
-    } else if (energy < 50000) {
+    else if (energy < 50000) {
 
-        entity.classList.add(
-            "stage6"
-        );
+        entity.classList.add("stage6");
 
         message.textContent =
             "It is looking at you.";
 
+    }
 
-    } else if (energy < 100000) {
+    else if (energy < 100000) {
 
-        entity.classList.add(
-            "stage7"
-        );
+        entity.classList.add("stage7");
 
         message.textContent =
             "Something is trying to get out.";
 
+    }
 
-    } else {
+    else {
 
-        entity.classList.add(
-            "stage8"
-        );
+        entity.classList.add("stage8");
 
-        message.textContent =
-            "TUTORIAL COMPLETE.";
+        if (!voidUnlocked) {
+
+            message.textContent =
+                "It doesn't need your help anymore.";
+
+        } else {
+
+            message.textContent =
+                "Something else is waiting.";
+
+        }
 
     }
 
@@ -952,7 +1018,61 @@ function updateEvolution() {
 
 
 /* =========================
-   CLICK
+   VOID
+========================= */
+
+function updateVoid() {
+
+    if (energy >= 100000) {
+
+        if (!voidUnlocked) {
+
+            voidUnlocked = true;
+
+        }
+
+    }
+
+    if (voidUnlocked) {
+
+        voidResource.classList.add(
+            "active"
+        );
+
+        voidPanel.classList.add(
+            "active"
+        );
+
+        voidButton.disabled =
+            energy < VOID_COST;
+
+    }
+
+}
+
+
+function createVoid() {
+
+    if (energy < VOID_COST) {
+        return;
+    }
+
+    energy -= VOID_COST;
+
+    voidPower += 1;
+
+    message.textContent =
+        "Something else is waiting.";
+
+    update();
+
+    save();
+
+}
+
+
+/* =========================
+   ENTITY CLICK
 ========================= */
 
 entity.addEventListener(
@@ -1004,7 +1124,13 @@ function save() {
         JSON.stringify({
 
             energy,
+
+            voidPower,
+
+            voidUnlocked,
+
             clickPower,
+
             autoPower,
 
             upgrades
@@ -1037,6 +1163,14 @@ function load() {
 
         energy =
             saveData.energy || 0;
+
+
+        voidPower =
+            saveData.voidPower || 0;
+
+
+        voidUnlocked =
+            saveData.voidUnlocked || false;
 
 
         clickPower =
@@ -1087,7 +1221,8 @@ function load() {
 
 document.addEventListener(
     "selectstart",
-    event => event.preventDefault()
+    event =>
+        event.preventDefault()
 );
 
 
