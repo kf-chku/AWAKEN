@@ -687,46 +687,51 @@ const upgrades = {
         cost: 25,
         unlock: 0,
         click: 1,
-        auto: 0
+        auto: 0,
+        multiplier: 1.12
     },
 
     2: {
         cost: 100,
         unlock: 0,
         click: 0,
-        auto: 1
+        auto: 1,
+        multiplier: 1.14
     },
 
     3: {
         cost: 500,
         unlock: 500,
         click: 5,
-        auto: 0
+        auto: 0,
+        multiplier: 1.16
     },
 
     4: {
         cost: 1500,
         unlock: 1000,
         click: 0,
-        auto: 5
+        auto: 5,
+        multiplier: 1.18
     },
 
     5: {
         cost: 5000,
         unlock: 5000,
         click: 25,
-        auto: 0
+        auto: 0,
+        multiplier: 1.20
     },
 
     6: {
         cost: 15000,
         unlock: 10000,
         click: 0,
-        auto: 25
+        auto: 25,
+        multiplier: 1.22
     }
 
 };
-
 
 /* =========================
    ELEMENTS
@@ -826,8 +831,8 @@ function buyUpgrade(id) {
         upgrade.auto;
 
     upgrade.cost =
-        Math.floor(
-            upgrade.cost * 2
+    Math.floor(
+        upgrade.cost * upgrade.multiplier
         );
 
     document.getElementById(
