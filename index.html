@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AWAKEN</title>
+
 <style>
     * {
         box-sizing: border-box;
@@ -12,6 +13,7 @@
         -webkit-touch-callout: none !important;
         -webkit-tap-highlight-color: transparent !important;
     }
+
     body {
         margin: 0;
         min-height: 100vh;
@@ -23,6 +25,7 @@
         align-items: center;
         overflow: hidden;
     }
+
     .game {
         width: min(900px, 100%);
         min-height: 100vh;
@@ -31,31 +34,37 @@
         flex-direction: column;
         align-items: center;
     }
+
     h1 {
         margin: 10px 0 2px;
         font-size: 42px;
         letter-spacing: 12px;
         font-weight: 300;
     }
+
     .subtitle {
         color: #666;
         font-size: 13px;
         letter-spacing: 3px;
         font-style: italic;
     }
+
     .energy {
         margin-top: 35px;
         text-align: center;
     }
+
     .energy-number {
         font-size: 42px;
         font-weight: bold;
     }
+
     .energy-label {
         color: #666;
         letter-spacing: 4px;
         font-size: 11px;
     }
+
     .entity {
         margin-top: 35px;
         width: 190px;
@@ -77,9 +86,11 @@
             box-shadow .4s,
             background .8s;
     }
+
     .entity:active {
         transform: scale(.94);
     }
+
     .core {
         width: 35px;
         height: 35px;
@@ -91,16 +102,45 @@
             height .8s,
             box-shadow .8s,
             background .8s;
+        position: relative;
     }
+
+    .eye {
+        display: none;
+        position: absolute;
+        width: 70%;
+        height: 38%;
+        left: 15%;
+        top: 31%;
+        border-radius: 50%;
+        background: #050505;
+        box-shadow: 0 0 12px #fff;
+    }
+
+    .eye::after {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background: #fff;
+        border-radius: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 12px #fff;
+    }
+
     .hint {
         margin-top: 18px;
         color: #555;
         font-size: 12px;
     }
+
     .upgrades {
         margin-top: 35px;
         width: min(500px, 100%);
     }
+
     .upgrade {
         width: 100%;
         padding: 14px;
@@ -112,21 +152,26 @@
         text-align: left;
         border-radius: 8px;
     }
+
     .upgrade:hover {
         border-color: #555;
     }
+
     .upgrade:disabled {
         opacity: .35;
         cursor: not-allowed;
     }
+
     .upgrade-name {
         font-weight: bold;
     }
+
     .upgrade-info {
         margin-top: 4px;
         color: #777;
         font-size: 12px;
     }
+
     .message {
         position: fixed;
         bottom: 25px;
@@ -135,17 +180,23 @@
         letter-spacing: 1px;
         text-align: center;
     }
-    /* Evolution stages */
+
+    /* =========================
+       EVOLUTION
+    ========================= */
+
     .stage1 .core {
         width: 35px;
         height: 35px;
     }
+
     .stage2 .core {
         width: 48px;
         height: 48px;
         background: #bbb;
         box-shadow: 0 0 45px #aaa;
     }
+
     .stage3 .core {
         width: 62px;
         height: 62px;
@@ -154,11 +205,13 @@
             0 0 30px #fff,
             0 0 70px #aaa;
     }
+
     .stage4 {
         box-shadow:
             0 0 40px rgba(255,255,255,.15),
             0 0 100px rgba(255,255,255,.08);
     }
+
     .stage4 .core {
         width: 78px;
         height: 78px;
@@ -168,9 +221,11 @@
             0 0 90px #fff,
             0 0 140px rgba(255,255,255,.5);
     }
+
     .stage5 {
         animation: pulse 2s infinite;
     }
+
     .stage5 .core {
         width: 95px;
         height: 95px;
@@ -180,29 +235,87 @@
             0 0 100px #fff,
             0 0 180px #fff;
     }
+
+    /* 10,000 ENERGY */
+
+    .stage6 {
+        animation: awakenPulse 1.5s infinite;
+        box-shadow:
+            0 0 60px rgba(255,255,255,.2),
+            0 0 150px rgba(255,255,255,.15);
+    }
+
+    .stage6 .core {
+        width: 110px;
+        height: 110px;
+        background: #ddd;
+        box-shadow:
+            0 0 50px #fff,
+            0 0 110px #fff,
+            0 0 200px #fff;
+    }
+
+    .stage6 .eye {
+        display: block;
+        animation: eyeOpen 1.2s ease-out;
+    }
+
     @keyframes pulse {
         0%, 100% {
             transform: scale(1);
         }
+
         50% {
             transform: scale(1.03);
         }
     }
+
+    @keyframes awakenPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    @keyframes eyeOpen {
+        0% {
+            transform: scaleY(0);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+    }
 </style>
 </head>
+
 <body>
+
 <div class="game">
+
     <h1>AWAKEN</h1>
     <div class="subtitle">Something Is Waiting</div>
+
     <div class="energy">
         <div class="energy-number" id="energy">0</div>
         <div class="energy-label">ENERGY</div>
     </div>
+
     <div class="entity stage1" id="entity">
-        <div class="core" id="core"></div>
+        <div class="core" id="core">
+            <div class="eye"></div>
+        </div>
     </div>
+
     <div class="hint">Feed it.</div>
+
     <div class="upgrades">
+
         <button
             class="upgrade"
             id="upgrade1"
@@ -210,12 +323,14 @@
             disabled
         >
             <div class="upgrade-name">Stronger Pulse</div>
+
             <div class="upgrade-info">
                 Cost:
                 <span id="cost1">25</span>
                 Energy · +1 energy per click
             </div>
         </button>
+
         <button
             class="upgrade"
             id="upgrade2"
@@ -223,114 +338,189 @@
             disabled
         >
             <div class="upgrade-name">Passive Growth</div>
+
             <div class="upgrade-info">
                 Cost:
                 <span id="cost2">100</span>
                 Energy · +1 energy/sec
             </div>
         </button>
+
     </div>
+
 </div>
+
 <div class="message" id="message">
     It is still sleeping.
 </div>
+
 <script>
+
 let energy = 0;
 let clickPower = 1;
 let autoPower = 0;
+
 let clickCost = 25;
 let autoCost = 100;
+
 const energyEl = document.getElementById("energy");
 const entity = document.getElementById("entity");
 const message = document.getElementById("message");
+
 function update() {
+
     energyEl.textContent = Math.floor(energy);
+
     document.getElementById("upgrade1").disabled =
         energy < clickCost;
+
     document.getElementById("upgrade2").disabled =
         energy < autoCost;
+
     document.getElementById("cost1").textContent =
         clickCost;
+
     document.getElementById("cost2").textContent =
         autoCost;
+
     updateEvolution();
 }
+
+
 /* =========================
    EVOLUTION
 ========================= */
+
 function updateEvolution() {
+
     entity.classList.remove(
         "stage1",
         "stage2",
         "stage3",
         "stage4",
-        "stage5"
+        "stage5",
+        "stage6"
     );
+
     if (energy < 100) {
+
         entity.classList.add("stage1");
+
         message.textContent =
             "It is still sleeping.";
+
     } else if (energy < 500) {
+
         entity.classList.add("stage2");
+
         message.textContent =
             "Something is stirring.";
+
     } else if (energy < 1000) {
+
         entity.classList.add("stage3");
+
         message.textContent =
             "It knows you are here.";
+
     } else if (energy < 5000) {
+
         entity.classList.add("stage4");
+
         message.textContent =
             "It is beginning to awaken.";
-    } else {
+
+    } else if (energy < 10000) {
+
         entity.classList.add("stage5");
+
         message.textContent =
             "It is awake.";
+
+    } else {
+
+        entity.classList.add("stage6");
+
+        message.textContent =
+            "It is looking at you.";
+
     }
 }
+
+
 /* =========================
    CLICK
 ========================= */
+
 entity.addEventListener("click", () => {
+
     energy += clickPower;
+
     update();
     save();
+
 });
+
+
 /* =========================
    UPGRADES
 ========================= */
+
 function buyClickPower() {
+
     if (energy < clickCost) return;
+
     energy -= clickCost;
+
     clickPower += 1;
+
     clickCost =
         Math.floor(clickCost * 1.7);
+
     update();
     save();
 }
+
+
 function buyAuto() {
+
     if (energy < autoCost) return;
+
     energy -= autoCost;
+
     autoPower += 1;
+
     autoCost =
         Math.floor(autoCost * 2);
+
     update();
     save();
 }
+
+
 /* =========================
    PASSIVE ENERGY
 ========================= */
+
 setInterval(() => {
+
     if (autoPower > 0) {
+
         energy += autoPower;
+
         update();
         save();
     }
+
 }, 1000);
+
+
 /* =========================
    SAVE
 ========================= */
+
 function save() {
+
     localStorage.setItem(
         "awakenSave",
         JSON.stringify({
@@ -342,44 +532,66 @@ function save() {
         })
     );
 }
+
+
 /* =========================
    LOAD
 ========================= */
+
 function load() {
+
     const data =
         localStorage.getItem("awakenSave");
+
     if (!data) return;
+
     try {
+
         const saveData =
             JSON.parse(data);
+
         energy =
             saveData.energy || 0;
+
         clickPower =
             saveData.clickPower || 1;
+
         autoPower =
             saveData.autoPower || 0;
+
         clickCost =
             saveData.clickCost || 25;
+
         autoCost =
             saveData.autoCost || 100;
+
     } catch {
+
         console.log(
             "Save data could not be loaded."
         );
     }
 }
+
+
 /* =========================
    PREVENT TEXT SELECTION
 ========================= */
+
 document.addEventListener(
     "selectstart",
     event => event.preventDefault()
 );
+
+
 /* =========================
    START
 ========================= */
+
 load();
 update();
+
 </script>
+
 </body>
 </html>
