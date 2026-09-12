@@ -31,7 +31,7 @@ body {
 .game {
     width: min(900px, 100%);
     min-height: 100vh;
-    padding: 30px 20px;
+    padding: 30px 20px 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -221,6 +221,7 @@ h1 {
     font-size: 12px;
 }
 
+
 /* VOID */
 
 .void-panel {
@@ -277,6 +278,60 @@ h1 {
     opacity: .3;
 }
 
+
+/* VOID UPGRADES */
+
+.void-upgrades {
+    display: none;
+
+    width: min(500px, 100%);
+    margin-top: 20px;
+}
+
+.void-upgrades.active {
+    display: block;
+}
+
+.void-upgrade-title {
+    color: #666;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.void-upgrade {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+
+    background: #080808;
+    border: 1px solid #292929;
+
+    color: #ccc;
+
+    text-align: left;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.void-upgrade:disabled {
+    opacity: .3;
+    cursor: not-allowed;
+}
+
+.void-upgrade-name {
+    font-weight: bold;
+}
+
+.void-upgrade-info {
+    margin-top: 4px;
+    color: #666;
+    font-size: 12px;
+}
+
+
 /* MESSAGE */
 
 .message {
@@ -292,6 +347,7 @@ h1 {
 
     max-width: 90%;
 }
+
 
 /* EVOLUTION */
 
@@ -421,6 +477,62 @@ h1 {
     display: block;
 }
 
+
+/* VOID STAGES */
+
+.void1 .core {
+    background: #ddd;
+
+    box-shadow:
+        0 0 70px #fff,
+        0 0 170px #aaa;
+}
+
+.void2 .core {
+    background: #bbb;
+
+    box-shadow:
+        0 0 70px #fff,
+        0 0 180px #777,
+        0 0 250px #555;
+}
+
+.void3 .core {
+    background: #888;
+
+    box-shadow:
+        0 0 80px #aaa,
+        0 0 200px #555,
+        0 0 300px #333;
+}
+
+.void4 .core {
+    background: #444;
+
+    box-shadow:
+        0 0 80px #777,
+        0 0 200px #333,
+        0 0 350px #111;
+}
+
+.void5 .core {
+    background: #111;
+
+    box-shadow:
+        0 0 100px #555,
+        0 0 250px #222,
+        0 0 400px #111;
+}
+
+.void5 .eye {
+    box-shadow:
+        0 0 20px #fff,
+        0 0 50px #fff;
+}
+
+
+/* ANIMATIONS */
+
 @keyframes pulse {
     0%, 100% {
         transform: scale(1);
@@ -461,18 +573,6 @@ h1 {
     }
 }
 
-@keyframes eyeOpen {
-    0% {
-        transform: scaleY(0);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scaleY(1);
-        opacity: 1;
-    }
-}
-
 </style>
 </head>
 
@@ -486,6 +586,7 @@ h1 {
         Something Is Waiting
     </div>
 
+
     <div class="resources">
 
         <div class="energy-number" id="energy">
@@ -495,6 +596,7 @@ h1 {
         <div class="energy-label">
             ENERGY
         </div>
+
 
         <div
             class="void-resource"
@@ -516,6 +618,7 @@ h1 {
 
     </div>
 
+
     <div
         class="entity stage1"
         id="entity"
@@ -529,9 +632,11 @@ h1 {
 
     </div>
 
+
     <div class="hint">
         Feed it.
     </div>
+
 
     <!-- ENERGY UPGRADES -->
 
@@ -674,7 +779,10 @@ h1 {
             VOID
         </div>
 
-        <div class="void-description">
+        <div
+            class="void-description"
+            id="voidDescription"
+        >
             Something else is waiting.
         </div>
 
@@ -685,6 +793,100 @@ h1 {
             disabled
         >
             Sacrifice 10,000 Energy
+        </button>
+
+    </div>
+
+
+    <!-- VOID UPGRADES -->
+
+    <div
+        class="void-upgrades"
+        id="voidUpgrades"
+    >
+
+        <div class="void-upgrade-title">
+            WHAT LIES BEYOND
+        </div>
+
+
+        <button
+            class="void-upgrade"
+            id="vUpgrade1"
+            onclick="buyVoidUpgrade(1)"
+            disabled
+        >
+
+            <div class="void-upgrade-name">
+                Hollow Core
+            </div>
+
+            <div class="void-upgrade-info">
+                Cost:
+                <span id="vCost1">1</span>
+                VOID · +5 energy per click
+            </div>
+
+        </button>
+
+
+        <button
+            class="void-upgrade"
+            id="vUpgrade2"
+            onclick="buyVoidUpgrade(2)"
+            disabled
+        >
+
+            <div class="void-upgrade-name">
+                Void Harvest
+            </div>
+
+            <div class="void-upgrade-info">
+                Cost:
+                <span id="vCost2">3</span>
+                VOID · +1 VOID every 30 sec
+            </div>
+
+        </button>
+
+
+        <button
+            class="void-upgrade"
+            id="vUpgrade3"
+            onclick="buyVoidUpgrade(3)"
+            disabled
+        >
+
+            <div class="void-upgrade-name">
+                Unstable Pulse
+            </div>
+
+            <div class="void-upgrade-info">
+                Cost:
+                <span id="vCost3">5</span>
+                VOID · 10% chance to gain 1 VOID
+            </div>
+
+        </button>
+
+
+        <button
+            class="void-upgrade"
+            id="vUpgrade4"
+            onclick="buyVoidUpgrade(4)"
+            disabled
+        >
+
+            <div class="void-upgrade-name">
+                Something Inside
+            </div>
+
+            <div class="void-upgrade-info">
+                Cost:
+                <span id="vCost4">10</span>
+                VOID · The entity changes
+            </div>
+
         </button>
 
     </div>
@@ -722,6 +924,32 @@ let autoPower = 0;
 let voidUnlocked = false;
 
 const VOID_COST = 10000;
+
+
+/* =========================
+   VOID UPGRADES
+========================= */
+
+let hollowCoreLevel = 0;
+
+let voidHarvestLevel = 0;
+
+let unstablePulseLevel = 0;
+
+let somethingInsideLevel = 0;
+
+
+let voidUpgradeCosts = {
+
+    1: 1,
+
+    2: 3,
+
+    3: 5,
+
+    4: 10
+
+};
 
 
 /* =========================
@@ -806,6 +1034,12 @@ const voidPanel =
 const voidButton =
     document.getElementById("voidButton");
 
+const voidUpgrades =
+    document.getElementById("voidUpgrades");
+
+const voidDescription =
+    document.getElementById("voidDescription");
+
 
 /* =========================
    UPDATE
@@ -825,11 +1059,13 @@ function update() {
 
     updateVoid();
 
+    updateVoidUpgrades();
+
 }
 
 
 /* =========================
-   UPGRADES
+   ENERGY UPGRADES
 ========================= */
 
 function updateUpgrades() {
@@ -1014,6 +1250,9 @@ function updateEvolution() {
 
     }
 
+
+    updateVoidAppearance();
+
 }
 
 
@@ -1025,13 +1264,10 @@ function updateVoid() {
 
     if (energy >= 100000) {
 
-        if (!voidUnlocked) {
-
-            voidUnlocked = true;
-
-        }
+        voidUnlocked = true;
 
     }
+
 
     if (voidUnlocked) {
 
@@ -1040,6 +1276,10 @@ function updateVoid() {
         );
 
         voidPanel.classList.add(
+            "active"
+        );
+
+        voidUpgrades.classList.add(
             "active"
         );
 
@@ -1072,6 +1312,200 @@ function createVoid() {
 
 
 /* =========================
+   VOID UPGRADES
+========================= */
+
+function updateVoidUpgrades() {
+
+    if (!voidUnlocked) {
+        return;
+    }
+
+
+    const button1 =
+        document.getElementById("vUpgrade1");
+
+    const button2 =
+        document.getElementById("vUpgrade2");
+
+    const button3 =
+        document.getElementById("vUpgrade3");
+
+    const button4 =
+        document.getElementById("vUpgrade4");
+
+
+    button1.disabled =
+        voidPower <
+        voidUpgradeCosts[1];
+
+    button2.disabled =
+        voidPower <
+        voidUpgradeCosts[2];
+
+    button3.disabled =
+        voidPower <
+        voidUpgradeCosts[3];
+
+    button4.disabled =
+        voidPower <
+        voidUpgradeCosts[4];
+
+
+    document.getElementById(
+        "vCost1"
+    ).textContent =
+        voidUpgradeCosts[1];
+
+    document.getElementById(
+        "vCost2"
+    ).textContent =
+        voidUpgradeCosts[2];
+
+    document.getElementById(
+        "vCost3"
+    ).textContent =
+        voidUpgradeCosts[3];
+
+    document.getElementById(
+        "vCost4"
+    ).textContent =
+        voidUpgradeCosts[4];
+
+}
+
+
+function buyVoidUpgrade(id) {
+
+    const cost =
+        voidUpgradeCosts[id];
+
+
+    if (voidPower < cost) {
+        return;
+    }
+
+
+    voidPower -= cost;
+
+
+    if (id === 1) {
+
+        hollowCoreLevel++;
+
+        clickPower += 5;
+
+        voidUpgradeCosts[1] =
+            Math.floor(
+                cost * 1.5
+            );
+
+    }
+
+
+    if (id === 2) {
+
+        voidHarvestLevel++;
+
+        voidUpgradeCosts[2] =
+            Math.floor(
+                cost * 1.7
+            );
+
+    }
+
+
+    if (id === 3) {
+
+        unstablePulseLevel++;
+
+        voidUpgradeCosts[3] =
+            Math.floor(
+                cost * 1.8
+            );
+
+    }
+
+
+    if (id === 4) {
+
+        somethingInsideLevel++;
+
+        voidUpgradeCosts[4] =
+            Math.floor(
+                cost * 2
+            );
+
+    }
+
+
+    message.textContent =
+        "It is changing.";
+
+
+    update();
+
+    save();
+
+}
+
+
+/* =========================
+   VOID APPEARANCE
+========================= */
+
+function updateVoidAppearance() {
+
+    entity.classList.remove(
+
+        "void1",
+        "void2",
+        "void3",
+        "void4",
+        "void5"
+
+    );
+
+
+    if (!voidUnlocked) {
+        return;
+    }
+
+
+    if (somethingInsideLevel >= 5) {
+
+        entity.classList.add("void5");
+
+    }
+
+    else if (somethingInsideLevel >= 4) {
+
+        entity.classList.add("void4");
+
+    }
+
+    else if (somethingInsideLevel >= 3) {
+
+        entity.classList.add("void3");
+
+    }
+
+    else if (somethingInsideLevel >= 2) {
+
+        entity.classList.add("void2");
+
+    }
+
+    else if (somethingInsideLevel >= 1) {
+
+        entity.classList.add("void1");
+
+    }
+
+}
+
+
+/* =========================
    ENTITY CLICK
 ========================= */
 
@@ -1080,6 +1514,23 @@ entity.addEventListener(
     () => {
 
         energy += clickPower;
+
+
+        /* UNSTABLE PULSE */
+
+        if (
+            unstablePulseLevel > 0 &&
+            Math.random() <
+            0.10 * unstablePulseLevel
+        ) {
+
+            voidPower += 1;
+
+            message.textContent =
+                "Something answered.";
+
+        }
+
 
         update();
 
@@ -1112,6 +1563,32 @@ setInterval(
 
 
 /* =========================
+   VOID HARVEST
+========================= */
+
+setInterval(
+    () => {
+
+        if (
+            voidHarvestLevel > 0 &&
+            voidUnlocked
+        ) {
+
+            voidPower +=
+                voidHarvestLevel;
+
+            update();
+
+            save();
+
+        }
+
+    },
+    30000
+);
+
+
+/* =========================
    SAVE
 ========================= */
 
@@ -1132,6 +1609,16 @@ function save() {
             clickPower,
 
             autoPower,
+
+            hollowCoreLevel,
+
+            voidHarvestLevel,
+
+            unstablePulseLevel,
+
+            somethingInsideLevel,
+
+            voidUpgradeCosts,
 
             upgrades
 
@@ -1154,6 +1641,7 @@ function load() {
         );
 
     if (!data) return;
+
 
     try {
 
@@ -1179,6 +1667,30 @@ function load() {
 
         autoPower =
             saveData.autoPower || 0;
+
+
+        hollowCoreLevel =
+            saveData.hollowCoreLevel || 0;
+
+
+        voidHarvestLevel =
+            saveData.voidHarvestLevel || 0;
+
+
+        unstablePulseLevel =
+            saveData.unstablePulseLevel || 0;
+
+
+        somethingInsideLevel =
+            saveData.somethingInsideLevel || 0;
+
+
+        if (saveData.voidUpgradeCosts) {
+
+            voidUpgradeCosts =
+                saveData.voidUpgradeCosts;
+
+        }
 
 
         if (saveData.upgrades) {
